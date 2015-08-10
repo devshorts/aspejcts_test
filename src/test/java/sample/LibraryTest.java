@@ -9,5 +9,7 @@ public class LibraryTest {
         Library library = new Library();
 
         library.sampleAroundAspect();
+
+        library.setField("test");
     }
 }

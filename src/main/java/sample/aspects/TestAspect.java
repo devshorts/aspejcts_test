@@ -5,13 +5,19 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 
 @Aspect
-public class TestAspect {
-    @Around("execution(@sample.aspects.AroundTest * *(..))")
-    public void around(ProceedingJoinPoint point) throws Throwable {
+public final class TestAspect {
+    @Around(
+            // @checkstyle StringLiteralsConcatenation (2 lines)
+            "(execution(* *(..)) || initialization(*.new(..)))"
+            + " && @annotation(sample.aspects.AroundTest)"
+    )
+    public Object around(ProceedingJoinPoint point) throws Throwable {
         System.out.println("start1");
 
         point.proceed();
 
         System.out.println("end");
+
+        return null;
     }
 }
